@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form/components/forms/base/FormBase.dart';
-import 'package:flutter_form/components/forms/factory/FormFacotry.dart';
+import 'package:flutter_form/components/forms/factory/FormFactory.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBox.dart';
+import 'package:flutter_form/components/forms/form/FormDatePicker.dart';
 import 'package:flutter_form/components/forms/form/FormTextField.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
@@ -21,6 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('zh', 'CH'),
+      ],
       home: Scaffold(
           appBar: AppBar(),
           body: FormFactory().generatoryForms([
@@ -46,7 +56,9 @@ class MyApp extends StatelessWidget {
                 FormSelectAble(label: "男", value: "nan"),
                 FormSelectAble(label: "女", value: "nv")
               ],
-            )
+            ),
+            DatePickerFormItem(
+                key: "datetime", label: "日期选择", placeholder: "请选择你的日期")
           ]).build()),
       theme: ThemeData(
         // This is the theme of your application.

@@ -1,1 +1,1 @@
-enum FormTypeEnum { Text, CheckBox, CheckBoxList, RadioButtonList }
+enum FormTypeEnum { Text, CheckBox, CheckBoxList, RadioButtonList, DatePicker }
