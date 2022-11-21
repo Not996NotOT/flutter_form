@@ -4,6 +4,7 @@ import 'package:flutter_form/components/forms/enum/FormTypeEnum.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBox.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBoxList.dart';
 import 'package:flutter_form/components/forms/form/FormDatePicker.dart';
+import 'package:flutter_form/components/forms/form/FormDropdown.dart';
 import 'package:flutter_form/components/forms/form/FormRadioButtonList.dart';
 import 'package:flutter_form/components/forms/form/FormTextField.dart';
 import '../base/FormBase.dart';
@@ -53,6 +54,14 @@ class FormFactory {
       case FormTypeEnum.DatePicker:
         var item = form as DatePickerFormItem;
         list.add(FormDatePicker(key: item.key, label: item.label));
+        break;
+      case FormTypeEnum.DropDown:
+        var item = form as DropDownFormItem;
+        list.add(FormDropDown(
+            key: item.key,
+            label: item.label,
+            data: item.data ?? [],
+            value: item.value ?? ""));
         break;
       default:
     }

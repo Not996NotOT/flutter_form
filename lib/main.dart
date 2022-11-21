@@ -3,6 +3,7 @@ import 'package:flutter_form/components/forms/base/FormBase.dart';
 import 'package:flutter_form/components/forms/factory/FormFactory.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBox.dart';
 import 'package:flutter_form/components/forms/form/FormDatePicker.dart';
+import 'package:flutter_form/components/forms/form/FormDropdown.dart';
 import 'package:flutter_form/components/forms/form/FormTextField.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -58,7 +59,16 @@ class MyApp extends StatelessWidget {
               ],
             ),
             DatePickerFormItem(
-                key: "datetime", label: "日期选择", placeholder: "请选择你的日期")
+                key: "datetime", label: "日期选择", placeholder: "请选择你的日期"),
+            DropDownFormItem(
+              key: "job",
+              label: "职业",
+              data: [
+                FormSelectAble(label: "请选择你的职业", value: ""),
+                FormSelectAble(label: "医生", value: "nan"),
+                FormSelectAble(label: "护士", value: "nv")
+              ],
+            ),
           ]).build()),
       theme: ThemeData(
         // This is the theme of your application.

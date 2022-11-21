@@ -38,7 +38,7 @@ class FormTextField extends FormBase<String> {
     return TextField(
       cursorColor: Global.primaryColor,
       controller: _controller,
-      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
           focusColor: Global.primaryColor,
           focusedBorder: UnderlineInputBorder(

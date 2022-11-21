@@ -32,7 +32,7 @@ class FormDatePicker extends FormBase<String> {
     this.value = "".obs..value = value;
     _controller = TextEditingController(text: "");
     _controller.addListener(() {
-      value = _controller.text;
+      this.value.value = _controller.text;
     });
     this.placeholder = placeholder;
     this.focusNode = FocusNode();
@@ -44,8 +44,10 @@ class FormDatePicker extends FormBase<String> {
                   child: CupertinoDatePicker(
                       dateOrder: DatePickerDateOrder.ymd,
                       mode: CupertinoDatePickerMode.date,
-                      onDateTimeChanged: ((value) {
-                        print(value);
+                      onDateTimeChanged: ((date) {
+                        var d = date.toString().split(" ")[0];
+                        this.value.value = d;
+                        _controller.value = _controller.value.copyWith(text: d);
                       }),
                     )
                 ),

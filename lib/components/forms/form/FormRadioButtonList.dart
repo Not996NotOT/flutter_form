@@ -24,7 +24,7 @@ class FormRadioButtonList extends FormBase<List<String>> {
       required List<FormSelectAble> data}) {
     this.key = key;
     this.label = label.obs;
-    this.data = Rx(data);
+    this.data = RxList(data);
     this.value = Rx(value ?? []);
   }
 
