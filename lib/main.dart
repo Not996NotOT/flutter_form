@@ -16,12 +16,68 @@ void main() {
   runApp(const MyApp());
 }
 
+enum MyFormsEnum { username, dropDown }
+
+extension AuthorityEnumExtension on MyFormsEnum {
+  int get value {
+    switch (this) {
+      case MyFormsEnum.username:
+        return 0;
+      case MyFormsEnum.dropDown:
+        return 6;
+    }
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var forms = FormFactory().generatoryForms([
+      TextFieldFormItem(
+          key: "name", label: "name", placeholder: "enter your name"),
+      TextFieldFormItem(
+          key: "password",
+          label: "password",
+          placeholder: "enter your password"),
+      CheckBoxFormItem(key: "isjiehun", label: "是否结婚"),
+      CheckBoxListFormItem(
+        key: "job",
+        label: "职业",
+        data: [
+          FormSelectAble(label: "医生", value: "nan"),
+          FormSelectAble(label: "护士", value: "nv")
+        ],
+      ),
+      RadioButtonListFormItem(
+        key: "gender",
+        label: "性别",
+        data: [
+          FormSelectAble(label: "男", value: "nan"),
+          FormSelectAble(label: "女", value: "nv")
+        ],
+      ),
+      DatePickerFormItem(
+          key: "datetime", label: "日期选择", placeholder: "请选择你的日期"),
+      DropDownFormItem(
+        key: "jobs",
+        label: "职业",
+        data: [
+          FormSelectAble(label: "医生", value: "nan"),
+          FormSelectAble(label: "护士", value: "nv")
+        ],
+      ),
+    ]);
+
+    var componet = forms.components[3] as FormCheckBoxList;
+    componet.setValue(["nv"]);
+    componet.setData([
+      FormSelectAble(label: "男人", value: "nan"),
+      FormSelectAble(label: "女人", value: "nv")
+    ]);
+
     return GetMaterialApp(
       title: 'Flutter Demo',
       localizationsDelegates: const [
@@ -34,42 +90,35 @@ class MyApp extends StatelessWidget {
       ],
       home: Scaffold(
           appBar: AppBar(),
-          body: FormFactory().generatoryForms([
-            TextFieldFormItem(
-                key: "name", label: "name", placeholder: "enter your name"),
-            TextFieldFormItem(
-                key: "password",
-                label: "password",
-                placeholder: "enter your password"),
-            CheckBoxFormItem(key: "isjiehun", label: "是否结婚"),
-            CheckBoxListFormItem(
-              key: "job",
-              label: "职业",
-              data: [
-                FormSelectAble(label: "医生", value: "nan"),
-                FormSelectAble(label: "护士", value: "nv")
-              ],
-            ),
-            RadioButtonListFormItem(
-              key: "gender",
-              label: "性别",
-              data: [
-                FormSelectAble(label: "男", value: "nan"),
-                FormSelectAble(label: "女", value: "nv")
-              ],
-            ),
-            DatePickerFormItem(
-                key: "datetime", label: "日期选择", placeholder: "请选择你的日期"),
-            DropDownFormItem(
-              key: "job",
-              label: "职业",
-              data: [
-                FormSelectAble(label: "请选择你的职业", value: ""),
-                FormSelectAble(label: "医生", value: "nan"),
-                FormSelectAble(label: "护士", value: "nv")
-              ],
-            ),
-          ]).build()),
+          body: Column(
+            children: [
+              forms.build(
+                  layout: (widgets) => Column(
+                        children: [
+                          widgets[MyFormsEnum.username.value].build(),
+                          widgets[3].build(),
+                          widgets[6].build()
+                        ],
+                      )),
+              ElevatedButton(
+                  onPressed: () {
+                    // var componet = forms.getComponentsByKey("name") as FormTextField;
+                    // print(componet.getValue());
+                    // print(forms.getValues());
+
+                    Map<String, dynamic> map = new Map();
+                    map["name"] = "123";
+                     map["job"] = ["nan","nv"];
+                    map["jobs"] = "nv";
+                    forms.setValues(map);
+
+                    forms.getComponentsByKey("name").setValue("zhangxing");
+
+                    print(forms.getValues());
+                  },
+                  child: Text("点击"))
+            ],
+          )),
       theme: ThemeData(
         // This is the theme of your application.
         //

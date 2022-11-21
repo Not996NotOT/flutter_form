@@ -68,4 +68,10 @@ class FormDropDown extends FormBase<String> {
   void setValue(String value) {
     this.value.value = value;
   }
+
+  @override
+  void setData(List<FormSelectAble> data) {
+    this.data.value = data;
+    
+  }
 }

@@ -10,7 +10,7 @@ import 'package:flutter_form/components/forms/form/FormTextField.dart';
 import '../base/FormBase.dart';
 
 class FormFactory {
-  List<FormBase> list = [];
+  List<FormBase> components = [];
   FormFactory generatoryForms(List<FormItem> forms) {
     forms.forEach((element) {
       _generatoryForm(element);
@@ -18,19 +18,39 @@ class FormFactory {
     return this;
   }
 
+  FormBase getComponentsByKey(String key) {
+    return components.where((item) => item.key == key).first;
+  }
+
+  Map<String, dynamic> getValues() {
+    Map<String, dynamic> map = Map();
+    components.forEach((item) {
+      map[item.key] = item.getValue();
+    });
+    return map;
+  }
+
+  void setValues(Map<String, dynamic> map) {
+    components.forEach((item) {
+      if (map[item.key] != null) {
+        item.setValue(map[item.key]);
+      }
+    });
+  }
+
   Widget build({Widget Function(List<FormBase>)? layout}) {
     return layout == null
         ? Container(
-            child: Column(children: list.map((e) => e.build()).toList()),
+            child: Column(children: components.map((e) => e.build()).toList()),
           )
-        : layout(list);
+        : layout(components);
   }
 
   _generatoryForm(FormItem form) {
     switch (form.type) {
       case FormTypeEnum.Text:
         var item = form as TextFieldFormItem;
-        list.add(FormTextField(
+        components.add(FormTextField(
             key: item.key,
             label: item.label,
             value: item.value ?? "",
@@ -38,26 +58,26 @@ class FormFactory {
         break;
       case FormTypeEnum.CheckBox:
         var item = form as CheckBoxFormItem;
-        list.add(FormCheckBox(
+        components.add(FormCheckBox(
             key: item.key, label: item.label, value: item.value ?? false));
         break;
       case FormTypeEnum.CheckBoxList:
         var item = form as CheckBoxListFormItem;
-        list.add(FormCheckBoxList(
+        components.add(FormCheckBoxList(
             key: item.key, label: item.label, data: item.data ?? []));
         break;
       case FormTypeEnum.RadioButtonList:
         var item = form as RadioButtonListFormItem;
-        list.add(FormRadioButtonList(
+        components.add(FormRadioButtonList(
             key: item.key, label: item.label, data: item.data ?? []));
         break;
       case FormTypeEnum.DatePicker:
         var item = form as DatePickerFormItem;
-        list.add(FormDatePicker(key: item.key, label: item.label));
+        components.add(FormDatePicker(key: item.key, label: item.label));
         break;
       case FormTypeEnum.DropDown:
         var item = form as DropDownFormItem;
-        list.add(FormDropDown(
+        components.add(FormDropDown(
             key: item.key,
             label: item.label,
             data: item.data ?? [],

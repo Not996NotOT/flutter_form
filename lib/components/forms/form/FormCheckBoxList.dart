@@ -65,4 +65,10 @@ class FormCheckBoxList extends FormBase<List<String>> {
   void setValue(List<String> value) {
     this.value.value = value;
   }
+  
+  @override
+  void setData(List<FormSelectAble> data) {
+    this.data.value = data;
+    
+  }
 }

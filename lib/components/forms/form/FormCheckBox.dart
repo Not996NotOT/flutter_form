@@ -48,4 +48,9 @@ class FormCheckBox extends FormBase<bool> {
   void setValue(bool value) {
     this.value.value = value;
   }
+  
+  @override
+  void setData(List<FormSelectAble> data) {
+    // TODO: implement setData
+  }
 }

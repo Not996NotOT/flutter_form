@@ -30,6 +30,7 @@ class FormTextField extends FormBase<String> {
     _controller = TextEditingController(text: "");
     _controller.addListener(() {
       value = _controller.text;
+      this.value.value = value;
     });
     this.placeholder = placeholder;
   }
@@ -57,5 +58,11 @@ class FormTextField extends FormBase<String> {
   @override
   setValue(String value) {
     this.value.value = value;
+    this._controller.value = _controller.value.copyWith(text: value);
+  }
+
+  @override
+  void setData(List<FormSelectAble> data) {
+    this.data.value = data;
   }
 }

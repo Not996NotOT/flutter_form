@@ -32,5 +32,6 @@ abstract class FormBase<T> {
   late RxList<FormSelectAble> data;
   T getValue();
   void setValue(T t);
+  void setData(List<FormSelectAble> data);
   Widget build();
 }
