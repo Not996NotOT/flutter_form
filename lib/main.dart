@@ -108,7 +108,7 @@ class MyApp extends StatelessWidget {
 
                     Map<String, dynamic> map = new Map();
                     map["name"] = "123";
-                     map["job"] = ["nan","nv"];
+                    map["job"] = ["nan", "nv"];
                     map["jobs"] = "nv";
                     forms.setValues(map);
 
