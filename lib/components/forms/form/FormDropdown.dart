@@ -11,9 +11,8 @@ class DropDownFormItem extends FormItem<String> {
       {required super.key,
       super.label = "",
       required super.data,
-      super.type = FormTypeEnum.DropDown}) {
-    super.value = "";
-  }
+      super.type = FormTypeEnum.DropDown,
+      super.value = ""});
 }
 
 class FormDropDown extends FormBase<String> {
@@ -27,7 +26,11 @@ class FormDropDown extends FormBase<String> {
     this.label = Rx(label);
 
     this.data = RxList(data);
-    this.value = data.length > 0 ? Rx(data[0].value) : Rx(value);
+    this.value = value != ""
+        ? Rx(value)
+        : data.length > 0
+            ? Rx(data[0].value)
+            : Rx(value);
   }
   @override
   Widget build() {
@@ -50,9 +53,7 @@ class FormDropDown extends FormBase<String> {
                           child: Text(item.label),
                         ))
                     .toList(),
-                onChanged: (value) => {
-                  this.value.value = value
-                },
+                onChanged: (value) => {this.value.value = value},
               ),
             ),
           )
@@ -72,6 +73,5 @@ class FormDropDown extends FormBase<String> {
   @override
   void setData(List<FormSelectAble> data) {
     this.data.value = data;
-    
   }
 }

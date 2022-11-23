@@ -29,6 +29,7 @@ abstract class FormBase<T> {
   late String key;
   late Rx<String> label;
   late Rx<T> value;
+  late RxList list;
   late RxList<FormSelectAble> data;
   T getValue();
   void setValue(T t);

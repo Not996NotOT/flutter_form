@@ -8,26 +8,34 @@ import '../enum/FormTypeEnum.dart';
 
 class TextFieldFormItem extends FormItem<String> {
   late String? placeholder;
+  late int? minLines;
+  late int? maxLines;
   TextFieldFormItem(
       {this.placeholder,
       required super.key,
       super.label = "",
       super.value,
-      super.type = FormTypeEnum.Text});
+      super.type = FormTypeEnum.Text,
+      this.minLines,
+      this.maxLines});
 }
 
 class FormTextField extends FormBase<String> {
   late TextEditingController _controller;
   late String placeholder;
+  late int? minLines;
+  late int? maxLines;
   FormTextField(
       {required String key,
       String label = "",
       String value = "",
-      String placeholder = ""}) {
+      String placeholder = "",
+      this.minLines,
+      this.maxLines}) {
     this.key = key;
     this.label = "".obs..value = label;
     this.value = "".obs..value = value;
-    _controller = TextEditingController(text: "");
+    _controller = TextEditingController(text: value);
     _controller.addListener(() {
       value = _controller.text;
       this.value.value = value;
@@ -37,6 +45,8 @@ class FormTextField extends FormBase<String> {
   @override
   Widget build() {
     return TextField(
+      minLines: minLines,
+      maxLines: maxLines,
       cursorColor: Global.primaryColor,
       controller: _controller,
       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),

@@ -22,6 +22,7 @@ class FormDatePicker extends FormBase<String> {
   late String placeholder;
   late FocusNode focusNode;
   bool _isOpen = false;
+  late Rx<DateTime> initialDateTime;
   FormDatePicker(
       {required String key,
       String label = "",
@@ -30,27 +31,32 @@ class FormDatePicker extends FormBase<String> {
     this.key = key;
     this.label = "".obs..value = label;
     this.value = "".obs..value = value;
+    this.initialDateTime =
+        Rx(value != "" ? DateTime.parse(value) : DateTime.now());
     _controller = TextEditingController(text: "");
     _controller.addListener(() {
       this.value.value = _controller.text;
     });
+
     this.placeholder = placeholder;
     this.focusNode = FocusNode();
     this.focusNode.addListener(() {
       if (!_isOpen) {
         Get.bottomSheet(
                 Container(
-                  height: 300,
-                  child: CupertinoDatePicker(
-                      dateOrder: DatePickerDateOrder.ymd,
-                      mode: CupertinoDatePickerMode.date,
-                      onDateTimeChanged: ((date) {
-                        var d = date.toString().split(" ")[0];
-                        this.value.value = d;
-                        _controller.value = _controller.value.copyWith(text: d);
-                      }),
-                    )
-                ),
+                    height: 300,
+                    child: Obx(
+                      () => CupertinoDatePicker(
+                          initialDateTime: initialDateTime.value,
+                          dateOrder: DatePickerDateOrder.ymd,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: ((date) {
+                            var d = date.toString().split(" ")[0];
+                            this.value.value = d;
+                            _controller.value =
+                                _controller.value.copyWith(text: d);
+                          })),
+                    )),
                 backgroundColor: Colors.white)
             .then((value) {
           _isOpen = false;
@@ -82,13 +88,15 @@ class FormDatePicker extends FormBase<String> {
     return value.value;
   }
 
+  //YYYY-MM-DD
   @override
   setValue(String value) {
     this.value.value = value;
+    initialDateTime.value = DateTime.parse(value);
   }
+
   @override
   void setData(List<FormSelectAble> data) {
     this.data.value = data;
-    
   }
 }

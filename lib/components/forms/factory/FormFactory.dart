@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form/components/forms/base/FormBase.dart';
 import 'package:flutter_form/components/forms/enum/FormTypeEnum.dart';
+import 'package:flutter_form/components/forms/form/FormAssetPicker.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBox.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBoxList.dart';
 import 'package:flutter_form/components/forms/form/FormDatePicker.dart';
@@ -54,7 +55,9 @@ class FormFactory {
             key: item.key,
             label: item.label,
             value: item.value ?? "",
-            placeholder: item.placeholder ?? ""));
+            placeholder: item.placeholder ?? "",
+            minLines: item.minLines,
+            maxLines: item.maxLines));
         break;
       case FormTypeEnum.CheckBox:
         var item = form as CheckBoxFormItem;
@@ -82,6 +85,11 @@ class FormFactory {
             label: item.label,
             data: item.data ?? [],
             value: item.value ?? ""));
+        break;
+      case FormTypeEnum.AssetPicker:
+        var item = form as AssetPickerFormItem;
+        components.add(FormAssetPicker(
+            key: item.key, label: item.label, assetType: item.assetType));
         break;
       default:
     }

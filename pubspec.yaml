@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   getwidget: ^3.0.1
+  wechat_assets_picker: ^8.1.4
   
   
 

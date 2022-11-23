@@ -4,5 +4,6 @@ enum FormTypeEnum {
   CheckBoxList,
   RadioButtonList,
   DatePicker,
-  DropDown
+  DropDown,
+  AssetPicker
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form/components/forms/base/FormBase.dart';
 import 'package:flutter_form/components/forms/factory/FormFactory.dart';
+import 'package:flutter_form/components/forms/form/FormAssetPicker.dart';
 import 'package:flutter_form/components/forms/form/FormCheckBox.dart';
 import 'package:flutter_form/components/forms/form/FormDatePicker.dart';
 import 'package:flutter_form/components/forms/form/FormDropdown.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_form/components/forms/form/FormTextField.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import 'components/forms/form/FormCheckBoxList.dart';
 import 'components/forms/form/FormRadioButtonList.dart';
@@ -37,7 +39,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var forms = FormFactory().generatoryForms([
       TextFieldFormItem(
-          key: "name", label: "name", placeholder: "enter your name"),
+          key: "name",
+          label: "name",
+          placeholder: "enter your name",
+          minLines: 2,
+          maxLines: 5,value: "这他妈的是一个默认值"),
       TextFieldFormItem(
           key: "password",
           label: "password",
@@ -46,6 +52,7 @@ class MyApp extends StatelessWidget {
       CheckBoxListFormItem(
         key: "job",
         label: "职业",
+      
         data: [
           FormSelectAble(label: "医生", value: "nan"),
           FormSelectAble(label: "护士", value: "nv")
@@ -64,13 +71,17 @@ class MyApp extends StatelessWidget {
       DropDownFormItem(
         key: "jobs",
         label: "职业",
+        value: "jiaoshou",
         data: [
           FormSelectAble(label: "医生", value: "nan"),
-          FormSelectAble(label: "护士", value: "nv")
+          FormSelectAble(label: "护士", value: "nv"),
+          FormSelectAble(label: "教授", value: "jiaoshou")
         ],
       ),
+      AssetPickerFormItem(key: "image", label: "上传小图片")
     ]);
 
+    var assetPicker = FormAssetPicker(key: "image", label: "选择图片");
     var componet = forms.components[3] as FormCheckBoxList;
     componet.setValue(["nv"]);
     componet.setData([
@@ -96,24 +107,31 @@ class MyApp extends StatelessWidget {
                   layout: (widgets) => Column(
                         children: [
                           widgets[MyFormsEnum.username.value].build(),
+                          widgets[1].build(),
                           widgets[3].build(),
-                          widgets[6].build()
+                          widgets[5].build(),
+                          widgets[6].build(),
+                          widgets[7].build(),
+                          //assetPicker.build()
                         ],
                       )),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // var componet = forms.getComponentsByKey("name") as FormTextField;
                     // print(componet.getValue());
                     // print(forms.getValues());
 
-                    Map<String, dynamic> map = new Map();
-                    map["name"] = "123";
-                    map["job"] = ["nan", "nv"];
-                    map["jobs"] = "nv";
-                    forms.setValues(map);
+                    // Map<String, dynamic> map = new Map();
+                    // map["name"] = "123";
+                    // map["job"] = ["nan", "nv"];
+                    // map["jobs"] = "nv";
+                    // forms.setValues(map);
 
-                    forms.getComponentsByKey("name").setValue("zhangxing");
+                    // forms.getComponentsByKey("name").setValue("zhangxing");
 
+                    // var files = assetPicker.getValue();
+                    // print(files);
+                    forms.getComponentsByKey("datetime").setValue("2024-01-01");
                     print(forms.getValues());
                   },
                   child: Text("点击"))
